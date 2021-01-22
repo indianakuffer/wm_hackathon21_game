@@ -4,15 +4,21 @@ export const Menu = makeSprite({
   render({ props, device }) {
     const { inputs } = device;
 
-    if (inputs.pointer.justReleased || inputs.keysJustPressed[" "]) {
+    if (inputs.keysJustPressed[" "]) {
       props.start();
     }
 
     return [
       t.text({
-        text: "Click or Space Bar to Start",
+        text: "Type the correct word to point left, right, or putt.",
         color: "white",
-        y: 100,
+        y: 220,
+      }),
+      t.text({
+        font: { size: 18 },
+        text: "(Space to begin)",
+        color: "white",
+        y: 190,
       }),
     ];
   },

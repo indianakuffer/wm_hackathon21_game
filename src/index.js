@@ -3,12 +3,17 @@ import { Level } from "./level";
 import { Menu } from "./menu";
 
 export const Game = makeSprite({
-  init() {
-    return {view: 'menu'};
+  init({preloadFiles}) {
+    preloadFiles({
+      audioFileNames: ["putt.mp3"],
+     }).then(() => {
+    });
+    return {view: 'menu'}
   },
 
-  render({ state, updateState }) {
-    const inMenu = state.view === 'menu'
+  render({ state, updateState, device }) {
+    let {view, loaded} = state
+    const inMenu = view === "menu";
 
     return [
       Level({
@@ -35,7 +40,7 @@ export const Game = makeSprite({
 export const gameProps = {
   id: "Game",
   size: {
-    width: 400,
+    width: 600,
     height: 600,
     maxHeightMargin: 150,
   },

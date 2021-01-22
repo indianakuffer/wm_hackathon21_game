@@ -7,7 +7,7 @@ export const Wall = makeSprite({
       t.rectangle({
         height: props.height,
         width: props.width,
-        color: 'green'
+        color: '#472D30'
       })
     ]
   }
