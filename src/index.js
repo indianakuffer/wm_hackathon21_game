@@ -1,19 +1,39 @@
-import { makeSprite } from "@replay/core";
+import { makeSprite, t } from "@replay/core";
 import { Level } from "./level";
 import { Menu } from "./menu";
 
 export const Game = makeSprite({
-  init({preloadFiles}) {
+  init({ preloadFiles, updateState }) {
     preloadFiles({
-      audioFileNames: ["putt.mp3"],
-     }).then(() => {
+      audioFileNames: [
+        "putt.mp3",
+        "clap.wav",
+        "cheer.mp3",
+        "hole.mp3",
+        "cough.mp3",
+      ],
+    }).then(() => {
+      updateState((state) => {
+        return { ...state, view: "menu" };
+      });
     });
-    return {view: 'menu'}
+
+    return {
+      view: "loading",
+    };
   },
 
   render({ state, updateState, device }) {
-    let {view, loaded} = state
+    let { view } = state;
     const inMenu = view === "menu";
+    if (view === "loading") {
+      return [
+        t.text({
+          text: "Loading...",
+          color: 'black'
+        }),
+      ];
+    }
 
     return [
       Level({
@@ -43,6 +63,7 @@ export const gameProps = {
     width: 600,
     height: 600,
     maxHeightMargin: 150,
+    WidthMargin: 150,
   },
   defaultFont: {
     name: "Helvetica",

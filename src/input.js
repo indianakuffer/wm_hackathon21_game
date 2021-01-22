@@ -256,16 +256,16 @@ export const Input = makeSprite({
           props.steerLeft();
           charBuffer = "";
           leftWord = nextWord;
-        }
-        if (rightWord === charBuffer) {
+        }else if (rightWord === charBuffer) {
           props.steerRight();
           charBuffer = "";
           rightWord = nextWord;
-        }
-        if (puttWord === charBuffer) {
+        } else if (puttWord === charBuffer) {
           props.putt();
           charBuffer = "";
           puttWord = nextWord;
+        } else {
+          device.audio('cough.mp3').play()
         }
       }
     }

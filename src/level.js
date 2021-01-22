@@ -24,7 +24,7 @@ const levelList = [
   },
   {
     hole: { x: 0, y: 150 },
-    ball: { x: 0, y: -220, direction: 270 },
+    ball: { x: 0, y: -220, direction: 90 },
     wallMap: [
       { x: 0, y: 0, height: 20, width: 250 },
     ],
@@ -44,6 +44,40 @@ const levelList = [
       { x: -100, y: -140, height: 150, width: 20 },
       { x: 100, y: -140, height: 150, width: 20 },
       { x: 0, y: -75, height: 20, width: 180 },
+    ],
+  },
+  {
+    hole: { x: 0, y: -2000 },
+    ball: { x: 0, y: 50, direction: 90 },
+    wallMap: [
+      //y
+      { x: -200, y: 200, height: 100, width: 20 },
+      { x: -100, y: 150, height: 200, width: 20 },
+      { x: -150, y: 150, height: 20, width: 120 },
+      { x: -150, y: 50, height: 20, width: 120 },
+      //o
+      { x: -50, y: 150, height: 200, width: 20 },
+      { x: 50, y: 150, height: 200, width: 20 },
+      { x: 0, y: 50, height: 20, width: 120 },
+      { x: 0, y: 240, height: 20, width: 120 },
+      //u
+      { x: 100, y: 150, height: 200, width: 20 },
+      { x: 200, y: 150, height: 200, width: 20 },
+      { x: 150, y: 50, height: 20, width: 120 },
+      //w
+      { x: -220, y: -100, height: 200, width: 20 },
+      { x: -80, y: -100, height: 200, width: 20 },
+      { x: -150, y: -150, height: 100, width: 20 },
+      { x: -150, y: -190, height: 20, width: 125 },
+      //i
+      { x: 0, y: -150, height: 100, width: 20 },
+      //n
+      { x: 100, y: -150, height: 100, width: 20 },
+      { x: 100, y: -125, height: 100, width: 20 },
+      { x: 150, y: -110, height: 20, width: 120 },
+      { x: 200, y: -150, height: 100, width: 20 },
+      
+      
     ],
   },
 ];
@@ -113,7 +147,7 @@ export const Level = makeSprite({
     ballY = nextY;
     // Hole in
     if (holeCollision(ballX, ballY, holeX, holeY)) {
-      level = 3;
+      level++;
       const newLevel = levelList[level];
       const newWalls = newLevel.wallMap;
       ballDirection = newLevel.ball.direction;
@@ -123,6 +157,11 @@ export const Level = makeSprite({
       holeY = newLevel.hole.y;
       ballSpeed = 0;
       walls = [...boundaryWalls, ...newWalls];
+      device.audio("hole.mp3").play();
+      device.audio("clap.wav").play();
+      if (level === 4) {
+        device.audio("cheer.mp3").play();
+      }
     }
 
     return {
